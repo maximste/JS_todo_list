@@ -1,27 +1,18 @@
+//Функция для создания элементов, рефакторинг функции createTodoItem()
+function createElement(tag, properties, ...children) {
+	const element = document.createElement(tag);
+
+	Object.keys(properties).forEach(key => element[key] = properties[key]);
+}
+
 //Метод для отображения очередной задачи
 function createTodoItem(title) {
-	const checkbox = document.createElement('input');
-	checkbox.type = 'checkbox';
-	checkbox.className = 'checkbox';
-
-	const label = document.createElement('lsbel');
-	label.innerText = title;
-	label.className = 'title';
-
-	const editInput = document.createElement('input');
-	editInput.type = 'text';
-	editInput.className = 'textfield';
-
-	const editButton = document.createElement('button');
-	editButton.innerText = 'Изменить';
-	editButton.className = 'edit';
-
-	const deleteButton = document.createElement('button');
-	deleteButton.innerText = 'Удалить';
-	deleteButton.className = 'delete';
-
-	const listItem = document.createElement('li');
-	listItem.className = 'todo-item';
+	const checkbox = createElement('input', { type: 'checkbox', className: 'checkbox' });
+	const label = createElement('label', { className: 'title'}, title);
+	const editInput = createElement('input', { type: 'text', className: 'textfield' });
+	const editButton = createElement('button', { className: 'edit' }, 'Изменить');
+	const deleteButton = createElement('button', { className: 'delete' }, 'Удалить');
+	const listItem = document.createElement('li', { className: 'todo-item' });
 
 	listItem.appendChild(checkbox);
 	listItem.appendChild(label);
