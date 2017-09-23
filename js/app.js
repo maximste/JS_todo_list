@@ -3,6 +3,16 @@ function createElement(tag, properties, ...children) {
 	const element = document.createElement(tag);
 
 	Object.keys(properties).forEach(key => element[key] = properties[key]);
+
+	if (children.length > 0) {
+		children.forEach( child => {
+			if (typeof child === 'string') {
+				child = document.createTextNode(child);
+			}
+			element.appendChild(child)
+		});
+	}
+	return element;
 }
 
 //Метод для отображения очередной задачи
@@ -12,13 +22,7 @@ function createTodoItem(title) {
 	const editInput = createElement('input', { type: 'text', className: 'textfield' });
 	const editButton = createElement('button', { className: 'edit' }, 'Изменить');
 	const deleteButton = createElement('button', { className: 'delete' }, 'Удалить');
-	const listItem = document.createElement('li', { className: 'todo-item' });
-
-	listItem.appendChild(checkbox);
-	listItem.appendChild(label);
-	listItem.appendChild(editInput);
-	listItem.appendChild(editButton);
-	listItem.appendChild(deleteButton);
+	const listItem = createElement('li', { className: 'todo-item' }, checkbox, label, editInput, editButton, deleteButton); //последним параметром передаем элементы, которые необходимо поместить в элемент li
 
 	//Привязываем обработчики событий
 	bindEvents(listItem);
